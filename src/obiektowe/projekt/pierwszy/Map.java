@@ -15,9 +15,6 @@ public class Map {
     Vector2d lowerLeft;
     Vector2d upperRight;
 
-//    //brzegi jungli
-//    Vector2d jungleLowerLeft;
-//    Vector2d jungleUpperRight;
 
     //Listy zwierząt i traw
     List<Animal> animals = new ArrayList<>();
@@ -76,7 +73,6 @@ public class Map {
 
     public List<MapField> emptyFields(MapArea area) {
         Stream<MapField> emptyFields = fields.values().stream().filter(MapField::isEmpty);
-        ;
         if (area == MapArea.JUNGLE) {
             emptyFields = emptyFields.filter(x -> x.inJungle());
         }
@@ -95,7 +91,7 @@ public class Map {
         if (emptyFields.isEmpty())
             throw new Exception("nie ma miejsca");
         Random random = new Random();
-        int index = random.nextInt(emptyFields.size())-1;
+        int index = random.nextInt(emptyFields.size()) - 1;
         MapField element = emptyFields.get(index);
         return element;
     }
@@ -134,8 +130,8 @@ public class Map {
 
     void removeDead() {
         for (Animal animal :
-                animals.stream().filter(x->(x.alive && x.energy<1)).collect(Collectors.toList())) {
-                deadAnimal(animal);
+                animals.stream().filter(x -> (x.alive && x.energy < 1)).collect(Collectors.toList())) {
+            deadAnimal(animal);
         }
     }
 

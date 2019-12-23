@@ -108,8 +108,7 @@ public class Vector2d {
 
     public boolean between(Vector2d lowerLeft, Vector2d upperRight) {
         if (this.follows(lowerLeft))// czy nie przekroczy granicy
-            if (this.precedes(upperRight))
-                return true;
+            return this.precedes(upperRight);
 
         return false;
     }

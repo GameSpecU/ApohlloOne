@@ -7,30 +7,22 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-public class Animal implements IWorldMapElement, Comparable {
-    //todo:map
+public class Animal implements Comparable {
 
 //    private ArrayList<IPositionChangeObserver> observers = new ArrayList<IPositionChangeObserver>();
 
     //pozycja
     public int id;
     public boolean alive;
-
-    public Vector2d getPosition() {
-        return position;
-    }
-
+    //energia
+    public int energy;
+    MapField field;
+    JButton jButton;
     private Map map;
     private Vector2d position;
     private int direction;
-    MapField field;
-    JButton jButton;
-
     //geny
     private int[] genes;
-
-    //energia
-    public int energy;
 
     //Konstruktor
     Animal(int startEnergy, MapField field, Map map) {
@@ -54,6 +46,10 @@ public class Animal implements IWorldMapElement, Comparable {
         this.alive = true;
         this.jButton = new JButton();
 
+    }
+
+    public Vector2d getPosition() {
+        return position;
     }
 
     public void sex(Animal partner) {
@@ -152,14 +148,7 @@ public class Animal implements IWorldMapElement, Comparable {
         this.direction %= 7;
     }
 
-    //    void addObserver(IPositionChangeObserver observer) {
-//        observers.add(observer);
-//    }
-//
-//    void removeObserver(IPositionChangeObserver observer) {
-//        observers.remove(observer);
-//    }
-//
+
     void positionChanged() {
 
 
@@ -171,11 +160,6 @@ public class Animal implements IWorldMapElement, Comparable {
         this.field = mapField;
     }
 
-
-//    public JButton getJButton() {
-//        updateButton();
-//        return jButton;
-//    }
 
     public JButton getJButton() {
         jButton.setBackground(energyColor());

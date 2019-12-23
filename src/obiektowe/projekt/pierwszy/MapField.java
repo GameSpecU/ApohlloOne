@@ -101,6 +101,7 @@ public class MapField {
         this.animals.add(animal);
         this.jPanel.add(animal.getJButton());
     }
+
     public void removeAnimal(Animal animal) {
         this.animals.remove(animal);
         this.jPanel.remove(animal.jButton);

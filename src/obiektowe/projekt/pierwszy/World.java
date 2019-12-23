@@ -6,12 +6,6 @@ import java.util.concurrent.TimeUnit;
 public class World extends JFrame {
     Config config = new Config();
 
-    public static void main(String[] args) {
-        new World();
-
-
-    }
-
     World() {
         super("ApohlloOne");
         setSize(1200, 1200);
@@ -32,6 +26,12 @@ public class World extends JFrame {
 
 
         }
+
+    }
+
+    public static void main(String[] args) {
+        new World();
+
 
     }
 }
