@@ -20,6 +20,7 @@ public class Map {
     List<Animal> animals = new ArrayList<>();
     //    List<Grass> grasses = new ArrayList<>();
     java.util.Map<Vector2d, MapField> fields = new HashMap<>();
+    private JPanel jPanel;
     //MapFieldSet emptyFields;
 
     Map() {
@@ -104,8 +105,8 @@ public class Map {
                 MapField field = fields.get(pos);
                 jPanel.add(field.getJPanel());
             }
-
         }
+        this.jPanel = jPanel;
 
         return jPanel;
     }
@@ -177,6 +178,9 @@ public class Map {
 
     private void updateGUI() {
         fields.values().forEach(MapField::updateField);
+//        this.jPanel.revalidate();
+//        this.jPanel.setVisible(true);
+
     }
 
 }
