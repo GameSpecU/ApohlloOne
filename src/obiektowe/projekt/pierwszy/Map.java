@@ -127,9 +127,11 @@ public class Map {
 
     void deadAnimal(Animal animal) {
         animal.field.removeAnimal(animal);
+        animal.alive = false;
     }
 
     void removeDead() {
+        animals.forEach((x->x.energy--));
         for (Animal animal :
                 animals.stream().filter(x -> (x.alive && x.energy < 1)).collect(Collectors.toList())) {
             deadAnimal(animal);

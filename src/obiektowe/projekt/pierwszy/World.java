@@ -40,7 +40,7 @@ public class World  implements ActionListener {
     private void frame(Map map) {
         map.day();
         try {
-            TimeUnit.MILLISECONDS.sleep(100);
+            TimeUnit.MILLISECONDS.sleep(25);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

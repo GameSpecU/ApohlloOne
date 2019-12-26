@@ -134,6 +134,9 @@ public class Animal implements Comparable {
     }
 
     void move() {
+        if (!this.alive)
+            return;//martwi nie umiejo chodzić :c
+
         this.turn();
         Vector2d oldPosition = this.position;
         Vector2d newPosition = oldPosition.movedIntoDirection(this.direction);
