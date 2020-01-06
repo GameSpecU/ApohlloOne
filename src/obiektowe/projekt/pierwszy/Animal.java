@@ -22,7 +22,13 @@ public class Animal implements Comparable {
     private Vector2d position;
     private int direction;
     //geny
-    private int[] genes;
+    public int[] genes;
+    public int age;
+    public int children;
+    public int descedants;
+    public Animal mother;
+    public Animal father;
+
 
     //Konstruktor
     Animal(int startEnergy, MapField field, Map map) {
@@ -42,9 +48,15 @@ public class Animal implements Comparable {
         this.energy = config.getIntConfig("startEnergy");
         this.direction = random.nextInt(7);
         this.map = map;
-        map.placeAnimal(this);
         this.alive = true;
         this.jButton = new JButton();
+        this.age = 0;
+        this.children = 0;
+        this.descedants=0;
+        this.mother=null;
+        this.father = null;
+        map.placeAnimal(this);
+
 
     }
 
@@ -79,6 +91,21 @@ public class Animal implements Comparable {
         partner.energy -= (int) (partner.energy * 0.25);
 
 
+        //przypisanie rodziców
+        baby.father=this;
+        baby.mother = partner;
+        this.increaseDescenants();
+        partner.increaseDescenants();
+
+    }
+
+    void increaseDescenants() {
+        this.children++;
+        this.descedants++;
+        if(this.mother==null || this.father==null)
+            return;
+        this.mother.increaseDescenants();
+        this.father.increaseDescenants();
     }
 
     void randomGenes() {

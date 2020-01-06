@@ -21,9 +21,12 @@ public class Map {
     //    List<Grass> grasses = new ArrayList<>();
     java.util.Map<Vector2d, MapField> fields = new HashMap<>();
     private JPanel jPanel;
+    private World world;
+    public StatPanel statPanel;
     //MapFieldSet emptyFields;
 
-    Map() {
+    Map(World world) {
+        this.world = world;
         Config config = new Config();
         int width = config.getIntConfig("width");
         int height = config.getIntConfig("height");
@@ -45,6 +48,7 @@ public class Map {
                 //
             }
         }
+        this.statPanel = new StatPanel(this);
     }
 
     public MapField getPositionForChild(Vector2d position) {
@@ -123,6 +127,8 @@ public class Map {
 
     void placeAnimal(Animal animal) {
         this.animals.add(animal);
+        animal.jButton.addActionListener(world.sidePanel);
+
     }
 
     void deadAnimal(Animal animal) {
@@ -131,15 +137,15 @@ public class Map {
     }
 
     void removeDead() {
-        animals.forEach((x->x.energy--));
+        aliveAnimals().forEach((x -> x.energy--));
         for (Animal animal :
-                animals.stream().filter(x -> (x.alive && x.energy < 1)).collect(Collectors.toList())) {
+                aliveAnimals().filter(x -> x.energy < 1).collect(Collectors.toList())) {
             deadAnimal(animal);
         }
     }
 
     void moveAnimals() {
-        animals.forEach(Animal::move);
+        aliveAnimals().forEach(Animal::move);
     }
 
     void eatGrasses() {
@@ -171,11 +177,17 @@ public class Map {
 
     void day() {
         removeDead();
+        increaseAge();
         moveAnimals();
         eatGrasses();
         sex();
         placeGrasses();
         updateGUI();
+        this.statPanel.updateStats();
+    }
+
+    private void increaseAge() {
+        this.aliveAnimals().forEach(x -> x.age++);
     }
 
     private void updateGUI() {
@@ -184,5 +196,31 @@ public class Map {
 //        this.jPanel.setVisible(true);
 
     }
+
+    public Stream<Animal> aliveAnimals() {
+        return this.animals.stream().filter(x -> x.alive);
+    }
+    public Stream<Animal> deadAnimals() {
+        return this.animals.stream().filter(x -> !x.alive);
+    }
+
+    public void soutGenomes() {
+        int count = 0;
+        Stream<Animal> animalStream = aliveAnimals();
+
+        List<Animal> animals = animalStream.collect(Collectors.toList());
+        for (Animal animal : animals
+        ) {            System.out.println();
+            System.out.print("Zwierzę nr "+count+" - geny:");
+
+            for (int gene: animal.genes
+                 ) {
+                System.out.print(" ");
+                System.out.print(gene);
+            }
+            count++;
+        }
+    }
+
 
 }

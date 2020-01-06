@@ -8,13 +8,16 @@ import java.awt.event.ActionListener;
 public class SidePanel extends JPanel implements ActionListener {
     JButton pauseButton;
     World world;
+    Map map;
 
 
-    public SidePanel(World world) {
+    public SidePanel(World world, Map map) {
         super();
         this.world = world;
+        this.map = map;
         this.setPreferredSize(new Dimension(200, 1000));
         this.add(getPauseButton());
+        this.add(map.statPanel);
 
     }
 

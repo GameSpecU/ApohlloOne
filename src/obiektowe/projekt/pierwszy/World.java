@@ -9,6 +9,7 @@ public class World  implements ActionListener {
     private JPanel mapPanel;
     private int status;//1=gra, 0=pauza
     Config config = new Config();
+    SidePanel sidePanel;
 
     World() {
         JFrame mainWindow = new JFrame("ApohlloOne");
@@ -17,13 +18,13 @@ public class World  implements ActionListener {
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         statWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         statWindow.setSize(300, 900);
-        Map map = new Map();
+        Map map = new Map(this);
 //        JPanel topPanel = new JPanel(new BorderLayout());
         mapPanel = map.getJPanel();
 //        mapPanel.setSize(900, 900);
 //        mapPanel.setMaximumSize(new Dimension(900, 900));
         mainWindow.add(mapPanel);
-        SidePanel sidePanel = new SidePanel(this);
+        this.sidePanel = new SidePanel(this, map);
         statWindow.add(sidePanel);
         statWindow.setVisible(true);
         mainWindow.setVisible(true);
